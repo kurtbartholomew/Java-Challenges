@@ -1,12 +1,9 @@
 package arrays_and_strings;
 
-import java.util.Arrays;
-
 public class MatrixZeroer {
     public static int[][] zeroMatrix(int[][] matrix) {
         markRowsAndColumnsForZeroing(matrix);
         zeroRowsAndColumns(matrix);
-        System.out.println(Arrays.deepToString(matrix));
         return matrix;
     }
     private static void markRowsAndColumnsForZeroing(int[][] matrix) {
