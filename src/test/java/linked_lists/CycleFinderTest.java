@@ -44,4 +44,9 @@ public class CycleFinderTest {
     public void shouldReturnNullIfCycleDoesNotExist() {
         assertEquals(null, CycleFinder.findCycle(listWithoutCycle));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionIfNullIsPassed() {
+        CycleFinder.findCycle(null);
+    }
 }
