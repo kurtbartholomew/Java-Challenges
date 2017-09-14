@@ -18,6 +18,9 @@ public class BSTValidator {
     }
 
     public static boolean validateBSTHelper(Node head, int min, int max) {
-        return true;
+        if(head == null) { return true; }
+        if(head.data <= min || head.data >= max) { return false; }
+        return validateBSTHelper(head.left, min, head.data)
+                && validateBSTHelper(head.right, head.data, max);
     }
 }

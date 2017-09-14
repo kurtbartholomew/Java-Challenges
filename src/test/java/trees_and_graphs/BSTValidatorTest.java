@@ -24,7 +24,6 @@ public class BSTValidatorTest {
         validBST.right = fourteen;
         three.left = two;
         three.right = five;
-        two.right = five;
         fourteen.left = ten;
         fourteen.right = seventeen;
 
