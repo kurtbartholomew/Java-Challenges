@@ -50,6 +50,6 @@ public class BinaryTreeBalanceCheckerTest {
 
     @Test
     public void shouldReturnFalseForUnbalancedTrees() {
-        assertFalse(BinaryTreeBalanceChecker.checkBalance(balanced));
+        assertFalse(BinaryTreeBalanceChecker.checkBalance(unbalanced));
     }
 }

@@ -18,6 +18,13 @@ public class BinaryTreeBalanceChecker {
     }
 
     public static int checkBalanceHelper(Node head) {
-        return 0;
+        if(head == null) { return 0; }
+        int left = checkBalanceHelper(head.left);
+        int right = checkBalanceHelper(head.right);
+        if(left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1;
+        } else {
+            return Math.max(left + 1, right + 1);
+        }
     }
 }
