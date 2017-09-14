@@ -27,6 +27,7 @@ public class SuccessorFinderTest {
         SuccessorFinder.Node eleven = new SuccessorFinder.Node(11);
         SuccessorFinder.Node ten = new SuccessorFinder.Node(10);
         SuccessorFinder.Node fourteen = new SuccessorFinder.Node(14);
+        SuccessorFinder.Node thirteen = new SuccessorFinder.Node(13);
 
         successorRoot.left = three;
         successorRoot.right = ten;
@@ -34,8 +35,9 @@ public class SuccessorFinderTest {
         ten.right = twelve;
         twelve.left = eleven;
         twelve.right = fourteen;
+        fourteen.left = thirteen;
         targetSuccessorNode = twelve;
-        successorNode = eleven;
+        successorNode = thirteen;
 
         parentSuccessorRoot = new SuccessorFinder.Node(20);
         SuccessorFinder.Node fifteen = new SuccessorFinder.Node(15);
@@ -69,16 +71,16 @@ public class SuccessorFinderTest {
 
     @Test
     public void shouldReturnDescendantSuccessorIfExists() {
-        assertEquals(SuccessorFinder.findSuccessor(successorRoot, targetSuccessorNode), successorNode);
+        assertEquals(SuccessorFinder.findSuccessor(targetSuccessorNode), successorNode);
     }
 
     @Test
     public void shouldReturnParentSuccessorIfExists() {
-        assertEquals(SuccessorFinder.findSuccessor(parentSuccessorRoot, targetParentSuccessorNode), parentSuccessorNode);
+        assertEquals(SuccessorFinder.findSuccessor(targetParentSuccessorNode), parentSuccessorNode);
     }
 
     @Test
     public void shouldReturnNullIfNoSuccessorExists() {
-        assertEquals(SuccessorFinder.findSuccessor(noSuccessorRoot, targetNoSuccessorNode), noSuccessorNode);
+        assertEquals(SuccessorFinder.findSuccessor(targetNoSuccessorNode), noSuccessorNode);
     }
 }
