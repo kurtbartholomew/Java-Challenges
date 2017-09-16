@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 public class DependencyResolverTest {
 
     private int[] resolvedDependencies;
-    private DependencyResolver.GraphNode entrant;
+    private List<DependencyResolver.GraphNode> dependencies;
+    private List<DependencyResolver.GraphNode> cyclicalDependencies;
 
     @Before
     public void setUp() {
@@ -30,19 +31,43 @@ public class DependencyResolverTest {
         nodeOne.addEdge(nodeSix);
         nodeThree.addEdge(nodeFour);
 
-        entrant = nodeOne;
+        dependencies = new ArrayList<>();
+        dependencies.add(nodeOne);
+        dependencies.add(nodeTwo);
+        dependencies.add(nodeThree);
+        dependencies.add(nodeFour);
+        dependencies.add(nodeFive);
+        dependencies.add(nodeSix);
 
-        resolvedDependencies = new int[]{1, 2, 3, 4, 5, 6};
+        resolvedDependencies = new int[]{6,1,2,4,3,5};
+
+        DependencyResolver.GraphNode nodeSeven = new DependencyResolver.GraphNode(7);
+        DependencyResolver.GraphNode nodeEight = new DependencyResolver.GraphNode(8);
+        DependencyResolver.GraphNode nodeNine = new DependencyResolver.GraphNode(9);
+
+        nodeSeven.addEdge(nodeEight);
+        nodeEight.addEdge(nodeNine);
+        nodeNine.addEdge(nodeSeven);
+
+        cyclicalDependencies = new ArrayList<>();
+        cyclicalDependencies.add(nodeSeven);
+        cyclicalDependencies.add(nodeEight);
+        cyclicalDependencies.add(nodeNine);
     }
 
     @Test
     public void shouldResolveDependenciesInCorrectOrder() {
-        List<DependencyResolver.GraphNode> dependencyChain = DependencyResolver.resolveDependencyChain(entrant);
+        List<DependencyResolver.GraphNode> dependencyChain = DependencyResolver.resolveDependencyChain(dependencies);
         int[] answer = new int[dependencyChain.size()];
         int counter = 0;
         for(DependencyResolver.GraphNode node: dependencyChain) {
             answer[counter++] = node.data;
         }
-        assertEquals(resolvedDependencies, answer);
+        assertArrayEquals(resolvedDependencies, answer);
+    }
+
+    @Test
+    public void shouldReturnNullIfContainsDependencyCycles() {
+        assertNull(DependencyResolver.resolveDependencyChain(cyclicalDependencies));
     }
 }
